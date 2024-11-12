@@ -3,9 +3,11 @@ import SeasonsList from './pages/SeasonsList';
 import RaceDetails from './pages/RaceDetails';
 import {BrowserRouter,Navigate,Route,Routes} from "react-router-dom";
 import RaceList from './pages/RaceList';
+import { Chart, registerables } from 'chart.js';
 
 const App: React.FC = () => {
 
+  Chart.register(...registerables);
   return (
     <BrowserRouter>
     <Routes>

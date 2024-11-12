@@ -1,46 +1,123 @@
-# Getting Started with Create React App
+# Formula One Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
+The Formula One Explorer is a React-based web application that provides users with a comprehensive view of Formula One race data, including race results, circuit details, and seasonal statistics. The app is designed to offer a seamless user experience with interactive data presentation and navigation.
 
-## Available Scripts
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Technical Approach](#technical-approach)
+- [Setup and Installation](#setup-and-installation)
+- [Running the Project](#running-the-project)
+- [Technologies Used](#technologies-used)
 
-In the project directory, you can run:
+## Getting Started
+This guide will walk you through the process of setting up and running the Formula One Explorer on your local development environment.
 
-### `npm start`
+## Project Structure
+The project is organized into the following main directories:
+- **src/components**: Reusable UI components.
+- **src/pages**: Contains page-level components such as `RaceList` and `SeasonDetails`.
+- **src/service**: API service calls.
+- **src/types**: TypeScript type definitions.
+- **src/utils**: Utility functions used across the app.
+- **public**: Static files.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technical Approach
+The application follows a modular and maintainable architecture, leveraging React and Ant Design for the UI. The main technical decisions include:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- **React with TypeScript**: Ensures type safety and improves code quality.
+- **Ant Design**: Used for consistent UI components.
+- **React Router**: Manages client-side routing for navigation.
+- **API Integration**: `getSeasonRace` and other service functions handle data fetching from [Ergast API](https://ergast.com/mrd/).
+- **LocalStorage**: Used for persisting user preferences (e.g., pinned races).
+- **Date-fns**: Helps format date values efficiently.
 
-### `npm test`
+Technical Approach
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# Formula One Explorer
 
-### `npm run build`
+## Overview
+The Formula One Explorer is a React-based web application that provides users with a comprehensive view of Formula One race data, including race results, circuit details, and seasonal statistics. The app is designed to offer a seamless user experience with interactive data presentation and navigation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Table of Contents
+- [Getting Started](#getting-started)
+- [Project Structure](#project-structure)
+- [Technical Approach](#technical-approach)
+- [Setup and Installation](#setup-and-installation)
+- [Running the Project](#running-the-project)
+- [Technologies Used](#technologies-used)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Getting Started
+This guide will walk you through the process of setting up and running the Formula One Explorer on your local development environment.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Project Structure
+The project is organized into the following main directories:
+- **src/components**: Reusable UI components.
+- **src/pages**: Contains page-level components such as `RaceList` and `SeasonDetails`.
+- **src/service**: API service calls.
+- **src/types**: TypeScript type definitions.
+- **src/utils**: Utility functions used across the app.
+- **public**: Static files.
 
-### `npm run eject`
+## Technical Approach
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Note: For persistent favorite races, there's another approach to use Zustand/Redux, but as we don't need to use a store in the app, using local storage is sufficient for simple apps.
+The application follows a modular and maintainable architecture, leveraging React and Ant Design for the UI. The main technical decisions include:
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **React with TypeScript**: Ensures type safety and improves code quality.
+- **Ant Design**: Used for consistent UI components.
+- **React Router**: Manages client-side routing for navigation.
+- **API Integration**: `getSeasonRace` and other service functions handle data fetching.
+- **LocalStorage**: Used for persisting user preferences (e.g., pinned races).
+- **Date-fns**: Helps format date values efficiently.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Key Features
+- View races by season.
+- Pin favorite races for quick access.
+- Interactive UI with card and table views.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Note: for Presistent favorite races, there's another aproach to use zustand/ redux but as we don't need to use store in the app, using local storgae for simple apps.
 
-## Learn More
+## Setup and Installation
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/a-asmaa/Formula-One-Explorer.git
+   cd Formula-One-Explorer
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. **Install Dependencies**:
+   Ensure you have Node.js installed. Run the following command to install project dependencies:
+   ```bash
+   npm install
+   ```
+
+3. **Set Up Environment Variables**:
+   Create a `.env` file in the root directory and add any necessary environment variables:
+   ```env
+   REACT_APP_API_BASE_URL=<API_BASE_URL>
+   ```
+
+## Running the Project
+
+1. **Start the Development Server**:
+   ```bash
+   npm start
+   ```
+   The app should now be running on `http://localhost:3000/`.
+
+2. **Build for Production**:
+   To create a production-ready build, run:
+   ```bash
+   npm run build
+   ```
+   This will output a minified version of the app in the `build` directory.
+
+## Technologies Used
+- **React** (v18)
+- **TypeScript**
+- **Ant Design** >> UI library
+- **React Router**
+- **Date-fns**
+- **LocalStorage API**

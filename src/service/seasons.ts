@@ -1,4 +1,4 @@
-const BASE_URL = 'https://ergast.com';
+const BASE_URL = 'https://ergast.com'; // TODO: add to env variables
 
 export const getSeasons = async () => {
 

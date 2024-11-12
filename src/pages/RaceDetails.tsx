@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { getRaceDetails } from '../service/seasons';
-import { Response, Result } from '../types/seasons';
+import { Response, Result } from '../types';
 import { useParams } from 'react-router-dom';
 import { List, Table, TableProps } from 'antd';
 import Header from '../component/Header';
 import { Bar } from "react-chartjs-2";
+import { scales } from 'chart.js';
+import { callback } from 'chart.js/dist/helpers/helpers.core';
 
 type DataType = {
   name: string;
@@ -18,7 +20,6 @@ type DataType = {
 function RaceDetails() {
 
     const [results, setResults] = React.useState<DataType[]>([]);
-    const [performance, setPerformance] = React.useState<any[]>([]);
     const [chartData, setChartData] = useState<any>();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const {seasonId, round} = useParams();
@@ -52,7 +53,7 @@ function RaceDetails() {
       },
      
     ];
-    const getRace = async () => {
+    const getRaceDetail = async () => {
 
         try {
           setIsLoading(true);
@@ -80,7 +81,7 @@ function RaceDetails() {
                 data.MRData.RaceTable?.Races[0].Results.forEach((result: Result) => {
                     list.push({
                       name: result.Driver.givenName + " " + result.Driver.familyName,
-                      // time: result.status === "Finished" ? result.Time.millis * 1.666668e-5 : 0,
+                      time: result.status === "Finished" ? result.Time.millis * 1.666668e-5 : 0,
                       laps: result.laps,
                       position: result.position
                     })
@@ -94,22 +95,7 @@ function RaceDetails() {
                       data: list.map((data: any) => data.laps),
                       borderWidth: 1,
                       backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
-                      ],
-                      borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
+                        'rgb(253, 104, 104)',
                       ],
                     },
                     {
@@ -117,38 +103,20 @@ function RaceDetails() {
                       data: list.map((data: any) => data.position),
                       borderWidth: 1,
                       backgroundColor: [
-                        "rgba(75,192,192,1)",
-                        "#50AF95",
-                        "#f3ba2f",
-                        "#2a71d0"
+                        'rgb(15, 131, 171)', 
                       ],
                     },
-                    // {
-                    //   label: "Completed Race Time",
-                    //   data: list.map((data: any) => data.time),
-                    //   backgroundColor: [
-                    //     'rgba(255, 99, 132, 0.2)',
-                    //     'rgba(255, 159, 64, 0.2)',
-                    //     'rgba(255, 205, 86, 0.2)',
-                    //     'rgba(75, 192, 192, 0.2)',
-                    //     'rgba(54, 162, 235, 0.2)',
-                    //     'rgba(153, 102, 255, 0.2)',
-                    //     'rgba(201, 203, 207, 0.2)'
-                    //   ],
-                    //   borderColor: [
-                    //     'rgb(255, 99, 132)',
-                    //     'rgb(255, 159, 64)',
-                    //     'rgb(255, 205, 86)',
-                    //     'rgb(75, 192, 192)',
-                    //     'rgb(54, 162, 235)',
-                    //     'rgb(153, 102, 255)',
-                    //     'rgb(201, 203, 207)'
-                    //   ],
-                    //   borderWidth: 1
-                    // }
-                  ]
+                    {
+                      label: "Completed Race Time",
+                      data: list.map((data: any) => data.time),
+                      backgroundColor: [
+                        'rgb(250, 164, 58)',
+                      
+                      ],
+                      borderWidth: 1
+                    }
+                  ],
                 })
-                setPerformance(list)
             }
   
         } catch (error) {
@@ -165,28 +133,14 @@ function RaceDetails() {
     }
 
     useEffect(() => {
-        getRace();
+      getRaceDetail();
     }, [])
     
   return (<>
 
     <Header title={`Race Details for season ${seasonId} round ${round}`}/>
 
-    {/* <List
-        style={{padding: 16}}
-        dataSource={results}
-        loading={isLoading}
-        renderItem={(result: Result) => (
-        <List.Item key={result.Driver.driverId}>
-            <List.Item.Meta
-                title={result.Driver.givenName + ' ' + result.Driver.familyName}
-                description={result.Driver.nationality}
-            />
-            <div>{result.position}</div>
-        </List.Item>
-        )}
-    /> */}
-      <Table columns={columns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }}/>
+     <Table columns={columns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }}/>
 
       { 
         chartData &&
@@ -200,8 +154,9 @@ function RaceDetails() {
               },
               legend: {
                 display: false
-              }
-            }
+              },
+            
+            },
           }}
         />
       }

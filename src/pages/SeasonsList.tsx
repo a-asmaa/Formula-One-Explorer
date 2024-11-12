@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { getSeasons } from '../service/seasons'
-import { Response, Season } from '../types/seasons';
+import { Response, Season } from '../types';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, Col, List, Row} from 'antd';
 import Header from '../component/Header';
@@ -50,7 +50,7 @@ function SeasonsList() {
                     return ( <Col key={season.season} style={{marginBottom: 16}}>
                             <Card hoverable className="card-container" bordered={true} 
                             onClick={() => navigate(`/seasons/${season.season}/races`)}
-                             cover={<img alt="example" src="/race.webp" style={{width: 200}}/>}>
+                             >
                             
                                 <Meta title={`Season ${season.season}`} /></Card>
                         </Col>

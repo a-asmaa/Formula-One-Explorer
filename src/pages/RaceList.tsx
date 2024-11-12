@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getSeasonRace } from '../service/seasons';
-import { Race, Response } from '../types/seasons';
+import { Race, Response } from '../types';
 import { Link, useParams } from 'react-router-dom';
 import { Card, Col, Row, Table, TableProps, Space } from 'antd';
 import Header from '../component/Header';
@@ -63,7 +63,7 @@ function RaceList(props: any) {
             loadRacesForSeason(list);
         } catch (error) {
             console.error('Error fetching Races:', error);
-            // use notification toast for errors 
+            // TODO: use notification toast for errors 
         } finally {
             setIsLoading(false);
         }

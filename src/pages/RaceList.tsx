@@ -2,8 +2,9 @@ import React, { useEffect } from 'react'
 import { getSeasonRace } from '../service/seasons';
 import { Race, Response } from '../types/seasons';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Col, List, Row } from 'antd';
+import { Card, Col, List, Row, Space } from 'antd';
 import Header from '../component/Header';
+import { PinterestFilled, PushpinOutlined } from '@ant-design/icons';
 
 function RaceList(props: any) {
 
@@ -39,7 +40,16 @@ function RaceList(props: any) {
 
     useEffect(() => {
         getSeasonRaces();
-    }, [])
+    }, []);
+
+    const handlePinRaces = (raceName: string) => {
+
+        const list = [...races].sort((x,y) => x.raceName == raceName ? -1 : y.raceName == raceName ? 1 : 0);
+        setRaces(list);
+
+        // presist races
+        // localStorage.setItem("races", JSON.stringify(list));
+    }
 
   return (
     <>
@@ -50,7 +60,12 @@ function RaceList(props: any) {
             <Row gutter={16} style={{padding: 16}} >
                 {races.map((race: Race)=> {
                     return ( <Col span={8} key={race.raceName} style={{marginBottom: 16}}>
-                            <Card title={<Link to={`/seasons/${seasonId}/races/${race.round}`}> {race.raceName}</Link>} bordered={true}>
+                            <Card 
+                            title={<Space style={{justifyContent: "space-between", width: '100%'}}>
+                                <Link to={`/seasons/${seasonId}/races/${race.round}`}> {race.raceName}</Link>
+                                <PushpinOutlined  onClick={() => handlePinRaces(race.raceName)}/>
+                                </Space>
+                                } bordered={true}>
                                 <div>{race.Circuit.circuitName}</div>
                                 <div>{race.date}</div>
                             </Card>

@@ -4,7 +4,7 @@ import React from 'react'
 function Header({ view, setView, title }: { view?: string, setView?: React.Dispatch<React.SetStateAction<string>>, title: string }) {
 
   return (
-    <Space style={{alignItems: "center", justifyContent: "space-between", padding: 16}} direction="horizontal"> 
+    <Space  className="page-header"  direction="horizontal"> 
       <Typography.Title level={3}>{title}</Typography.Title>
       {setView && 
         <Radio.Group value={view} onChange={(e) => setView(e.target.value)} size="middle">

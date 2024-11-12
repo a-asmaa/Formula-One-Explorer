@@ -11,3 +11,29 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  background-color: rgb(225, 6, 0);
+  padding: 15px 20px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.page-header { 
+  align-items: center;
+  justify-content: space-between;
+  width: -webkit-fill-available;
+  padding: 10px 16px;
+}
+
+.card-link {
+  color: black;
+}
+
+.card-container:hover .card-link {
+  text-decoration: underline;
+  color:rgb(225, 6, 0) !important
+}

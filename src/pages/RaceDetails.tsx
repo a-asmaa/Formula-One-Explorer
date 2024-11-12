@@ -2,19 +2,56 @@ import React, { useEffect, useState } from 'react'
 import { getRaceDetails } from '../service/seasons';
 import { Response, Result } from '../types/seasons';
 import { useParams } from 'react-router-dom';
-import { List } from 'antd';
+import { List, Table, TableProps } from 'antd';
 import Header from '../component/Header';
 import { Bar } from "react-chartjs-2";
+
+type DataType = {
+  name: string;
+  laps: number;
+  position: number;
+  nationality: number;
+}
+
 
 
 function RaceDetails() {
 
-    const [results, setResults] = React.useState<Result[]>([]);
+    const [results, setResults] = React.useState<DataType[]>([]);
     const [performance, setPerformance] = React.useState<any[]>([]);
     const [chartData, setChartData] = useState<any>();
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
     const {seasonId, round} = useParams();
+    const columns: TableProps<DataType>['columns'] = [
+      {
+        title: 'Driver Name',
+        dataIndex: 'name',
 
+        key: 'name',
+      },
+      {
+        title: 'Nationality',
+        dataIndex: 'nationality',
+
+        key: 'nationality',
+      },
+      {
+        title: 'Laps',
+        dataIndex: 'laps',
+        key: 'laps',
+      },
+      {
+        title: 'Team',
+        dataIndex: 'team',
+        key: 'team',
+      },
+      {
+        title: 'Position',
+        dataIndex: 'position',
+        key: 'position',
+      },
+     
+    ];
     const getRace = async () => {
 
         try {
@@ -24,7 +61,20 @@ function RaceDetails() {
             console.log(data.MRData.RaceTable?.Races);
             
             if( data.MRData.RaceTable?.Races.length ) {
-                setResults(data.MRData.RaceTable?.Races[0].Results);
+
+              let _list: any = [];
+              data.MRData.RaceTable?.Races[0].Results.forEach((result: Result) => {
+                  _list.push({
+                    name: result.Driver.givenName + " " + result.Driver.familyName,
+                    position: result.position,
+                    nationality: result.Driver.nationality,
+                    laps: result.laps,
+                    team: result.Constructor.name
+                  });
+              })
+      
+              setResults(_list);
+
 
                 let list : any= [];
                 data.MRData.RaceTable?.Races[0].Results.forEach((result: Result) => {
@@ -122,7 +172,7 @@ function RaceDetails() {
 
     <Header title={`Race Details for season ${seasonId} round ${round}`}/>
 
-    <List
+    {/* <List
         style={{padding: 16}}
         dataSource={results}
         loading={isLoading}
@@ -135,7 +185,8 @@ function RaceDetails() {
             <div>{result.position}</div>
         </List.Item>
         )}
-    />
+    /> */}
+      <Table columns={columns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }}/>
 
       { 
         chartData &&

@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react'
 import { getSeasons } from '../service/seasons'
 import { Response, Season } from '../types/seasons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Card, Col, List, Row} from 'antd';
 import Header from '../component/Header';
+import Meta from 'antd/es/card/Meta';
 
 function SeasonsList() {
 
     const [seasons, setSeasons] = React.useState<Season[]>([]);
     const [isLoading, setIsLoading] = React.useState<boolean>(false);
-    const [view, setView] = React.useState<string>("card");
+    const [view, setView] = React.useState<string>("list");
 
     const getSeaonList = async () => {
 
@@ -33,6 +34,7 @@ function SeasonsList() {
           setIsLoading(false);
         }
       }
+      const navigate = useNavigate();
 
     useEffect(() => {
         getSeaonList();
@@ -43,16 +45,19 @@ function SeasonsList() {
  
      {
          view === "card" ? 
-            <Row gutter={16} style={{padding: 16}}>
+            <Row gutter={{ xs: 8, sm: 16, md: 20}} style={{margin: 'auto', padding: 16, justifyContent: 'center'}}>
                 {seasons.map((season: Season)=> {
-                    return ( <Col span={8} key={season.season} style={{marginBottom: 16}}>
-                            <Card bordered={true}>
-                                <Link to={`/seasons/${season.season}/races`}> {season.season} </Link>
-                            </Card>
+                    return ( <Col key={season.season} style={{marginBottom: 16}}>
+                            <Card hoverable className="card-container" bordered={true} 
+                            onClick={() => navigate(`/seasons/${season.season}/races`)}
+                             cover={<img alt="example" src="/race.webp" style={{width: 200}}/>}>
+                            
+                                <Meta title={`Season ${season.season}`} /></Card>
                         </Col>
                     )
                 })}
             </Row>
+             
             :
             <List
                 style={{padding: 16}}

@@ -2,27 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { getRaceDetails } from '../service/seasons';
 import { Response, Result } from '../types';
 import { useParams } from 'react-router-dom';
-import { Table, TableProps, message } from 'antd';
+import { Table, message } from 'antd';
 import Header from '../component/Header';
 import { Bar } from "react-chartjs-2";
+import { ChartData, DataType, RaceDetailsColumns } from '../types/RaceDetailsType';
 
-type DataType = {
-  name: string;
-  laps: string;
-  position: string;
-  nationality: string;
-  team: string;
-}
-
-type ChartData = {
-  labels: string[];
-  datasets: Array<{
-    label: string;
-    data: number[];
-    backgroundColor: string[];
-    borderWidth: number;
-  }>
-};
 
 function RaceDetails() {
   const [results, setResults] = useState<DataType[]>([]);
@@ -30,13 +14,6 @@ function RaceDetails() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { seasonId, round } = useParams();
 
-  const columns: TableProps<DataType>['columns'] = [
-    { title: 'Driver Name', dataIndex: 'name', key: 'name' },
-    { title: 'Nationality', dataIndex: 'nationality', key: 'nationality' },
-    { title: 'Laps', dataIndex: 'laps', key: 'laps' },
-    { title: 'Team', dataIndex: 'team', key: 'team' },
-    { title: 'Position', dataIndex: 'position', key: 'position' },
-  ];
 
   const prepareRaceData = (results: Result[]) => {
     let raceResults: DataType[] = [];
@@ -91,7 +68,7 @@ function RaceDetails() {
   return (
     <>
       <Header title={`Race Details for season ${seasonId} round ${round}`} />
-      <Table columns={columns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }} />
+      <Table columns={RaceDetailsColumns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }} />
       {chartData && (
         <Bar
           data={chartData}

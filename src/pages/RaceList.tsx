@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { getSeasonRace } from '../service/seasons';
 import { Race, Response } from '../types';
 import { Link, useParams } from 'react-router-dom';
-import { Card, Col, Row, Table, TableProps, Space } from 'antd';
+import { Card, Col, Row, Table, Space, TableProps } from 'antd';
 import Header from '../component/Header';
 import { PushpinOutlined } from '@ant-design/icons';
 import { format } from 'date-fns/format';
 
-type DataType = {
+
+type RaceDataType = {
     pinned?: boolean;
     race: string;
     date: string;
@@ -15,17 +16,23 @@ type DataType = {
     round: number;
 }
 
+
 function RaceList() {
     const [races, setRaces] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [view, setView] = useState<string>("list");
     const { seasonId } = useParams();
 
-    const columns: TableProps<DataType>['columns'] = [
+
+    const RaceListColumns: TableProps<RaceDataType>['columns'] = [
         {
             title: 'Race Name',
             dataIndex: 'race',
             key: 'race',
+            render: (text, record) => (
+                <Link className='card-link' style={{ color: "black" }}
+                to={`/seasons/${seasonId}/races/${record.round}`}>{record.race}</Link>
+            )
         },
         {
             title: 'Round',
@@ -43,7 +50,7 @@ function RaceList() {
             key: 'date',
         },
     ];
-
+  
     const getSeasonRaces = async () => {
         try {
             setIsLoading(true);
@@ -112,7 +119,7 @@ function RaceList() {
             <Header view={view} setView={setView} title={`${seasonId} RACE RESULTS`} />
             {view === "card" ? (
                 <Row gutter={16} style={{ padding: 16 }}>
-                    {races.map((race: DataType) => (
+                    {races.map((race: RaceDataType) => (
                         <Col span={8} key={race.race} style={{ marginBottom: 16 }}>
                             <Card className='card-container'
                                 title={
@@ -132,7 +139,7 @@ function RaceList() {
                     ))}
                 </Row>
             ) : (
-                <Table columns={columns} loading={isLoading} dataSource={races} pagination={{ position: ['bottomRight'], pageSize: 8 }} />
+                <Table columns={RaceListColumns} loading={isLoading} dataSource={races} pagination={{ position: ['bottomRight'], pageSize: 8 }} />
             )}
         </>
     );

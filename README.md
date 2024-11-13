@@ -57,7 +57,6 @@ The project is organized into the following main directories:
 - **src/pages**: Contains page-level components such as `RaceList` and `SeasonDetails`.
 - **src/service**: API service calls.
 - **src/types**: TypeScript type definitions.
-- **src/utils**: Utility functions used across the app.
 - **public**: Static files.
 
 ## Technical Approach

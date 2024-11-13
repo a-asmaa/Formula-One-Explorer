@@ -56,7 +56,6 @@ function SeasonsList() {
                     )
                 })}
             </Row>
-             
             :
             <List
                 style={{padding: 16}}

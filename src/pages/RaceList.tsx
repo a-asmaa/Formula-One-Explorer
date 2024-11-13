@@ -15,10 +15,10 @@ type DataType = {
     round: number;
 }
 
-function RaceList(props: any) {
+function RaceList() {
     const [races, setRaces] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [view, setView] = useState<string>("card");
+    const [view, setView] = useState<string>("list");
     const { seasonId } = useParams();
 
     const columns: TableProps<DataType>['columns'] = [

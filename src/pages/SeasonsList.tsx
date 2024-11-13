@@ -51,7 +51,6 @@ function SeasonsList() {
                             <Card hoverable className="card-container" bordered={true} 
                             onClick={() => navigate(`/seasons/${season.season}/races`)}
                              >
-                            
                                 <Meta title={`Season ${season.season}`} /></Card>
                         </Col>
                     )

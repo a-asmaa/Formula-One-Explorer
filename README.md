@@ -93,12 +93,6 @@ Note: for Presistent favorite races, there's another aproach to use zustand/ red
    npm install
    ```
 
-3. **Set Up Environment Variables**:
-   Create a `.env` file in the root directory and add any necessary environment variables:
-   ```env
-   REACT_APP_API_BASE_URL=<API_BASE_URL>
-   ```
-
 ## Running the Project
 
 1. **Start the Development Server**:
@@ -113,6 +107,11 @@ Note: for Presistent favorite races, there's another aproach to use zustand/ red
    npm run build
    ```
    This will output a minified version of the app in the `build` directory.
+
+3. **Run test cases**:
+   ```bash
+   npm run test
+   ```
 
 ## Technologies Used
 - **React** (v18)

@@ -37,3 +37,7 @@ code {
   text-decoration: underline;
   color:rgb(225, 6, 0) !important
 }
+
+.card-container h3 {
+  margin: 2px 0;
+}

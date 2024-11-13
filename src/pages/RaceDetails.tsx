@@ -68,9 +68,12 @@ function RaceDetails() {
   return (
     <>
       <Header title={`Race Details for season ${seasonId} round ${round}`} />
-      <Table columns={RaceDetailsColumns} loading={isLoading} dataSource={results} pagination={{ position: ['bottomRight'], pageSize: 8 }} />
+      <Table columns={RaceDetailsColumns} loading={isLoading}
+            dataSource={results} locale={{ emptyText: 'No Race Data' }}
+            pagination={{ position: ['bottomRight'], pageSize: 8 }} />
       {chartData && (
         <Bar
+          role='chart'
           data={chartData}
           options={{
             plugins: {

@@ -4,6 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import RaceDetails from '../pages/RaceDetails';
 import { getRaceDetails } from '../service/seasons';
 import '@testing-library/jest-dom';
+import { mockMediaQuery } from './utils';
 
 // Mock the service function
 jest.mock('../service/seasons', () => ({
@@ -15,19 +16,7 @@ describe('RaceDetails Component', () => {
   const round = '1'; 
 
   beforeEach(() => {
-    Object.defineProperty(window, 'matchMedia', {
-        writable: true,
-        value: jest.fn().mockImplementation(query => ({
-          matches: false,
-          media: query,
-          onchange: null,
-          addListener: jest.fn(), // Deprecated
-          removeListener: jest.fn(), // Deprecated
-          addEventListener: jest.fn(),
-          removeEventListener: jest.fn(),
-          dispatchEvent: jest.fn(),
-        })),
-      });
+    mockMediaQuery();
     // Clear previous mock calls
     jest.clearAllMocks();
   });
@@ -114,7 +103,7 @@ describe('RaceDetails Component', () => {
 
     // The table should show no data
     await waitFor(() => {
-      expect(screen.getByText(/No race data available/i)).toBeInTheDocument();
+      expect(screen.getByText(/No Race Data/i)).toBeInTheDocument();
     });
   });
 });

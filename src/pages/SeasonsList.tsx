@@ -4,7 +4,6 @@ import { Response, Season } from '../types';
 import { Link, useNavigate } from 'react-router-dom';
 import { Card, Col, List, Row} from 'antd';
 import Header from '../component/Header';
-import Meta from 'antd/es/card/Meta';
 
 function SeasonsList() {
 
@@ -49,9 +48,10 @@ function SeasonsList() {
                 {seasons.map((season: Season)=> {
                     return ( <Col key={season.season} style={{marginBottom: 16}}>
                             <Card hoverable className="card-container" bordered={true} 
-                            onClick={() => navigate(`/seasons/${season.season}/races`)}
+                              onClick={() => navigate(`/seasons/${season.season}/races`)}
                              >
-                                <Meta title={`Season ${season.season}`} /></Card>
+                              <h3> Season {season.season} </h3>
+                                </Card>
                         </Col>
                     )
                 })}
@@ -61,6 +61,7 @@ function SeasonsList() {
                 style={{padding: 16}}
                 dataSource={seasons}
                 loading={isLoading}
+                locale={{ emptyText: 'No seasons found' }}
                 renderItem={(season: Season) => (
                 <List.Item key={season.season}>
                     <List.Item.Meta
